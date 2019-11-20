@@ -7,11 +7,6 @@ jobs:
     steps:
         - name: Checkout Project
           uses: actions/checkout@v1
-        
-        - name: Intall Zip
-          run: | 
-            apt-get update
-            apt-get install zip -y
 
         - name: Decrypt the license file
           run: openssl aes-256-cbc -d -in .github/Unity_v2018.x.ulf.enc -k ${{ secrets.UNITY_LICENSE_DECRYPT_KEY }} >> .github/Unity_v2018.x.ulf
@@ -26,19 +21,14 @@ jobs:
         - name: Build OSX Player
           run: /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -noUpm -logFile -projectPath . -buildOSXUniversalPlayer ./bin-osx/CISample.app      
         
-        - name: Zip Builds
-          run: |
-            zip -r CISampleWin64Binary.zip ./bin-win64
-            zip -r CISampleOSXBinary.zip ./bin-osx
-
         - name: Archive Windows Build
           uses: actions/upload-artifact@v1
           with:
             name: CISampleWin64Binary
-            path: ./CISampleWin64Binary.zip
+            path: ./bin-win64
 
         - name: Archive Mac Build
           uses: actions/upload-artifact@v1
           with:
             name: CISampleOSXBinary
-            path: ./CISampleOSXBinary.zip
+            path: ./bin-osx
