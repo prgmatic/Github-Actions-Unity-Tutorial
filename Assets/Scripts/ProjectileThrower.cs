@@ -22,7 +22,6 @@ public class ProjectileThrower : MonoBehaviour
             {
                 var point = ray.GetPoint(distance);
                 ThrowProjectile(point);
-                Debug.Log(point);
             }
         }
     }
@@ -34,6 +33,7 @@ public class ProjectileThrower : MonoBehaviour
         proj.transform.localScale = Vector3.one * _scale;
 
         var rb = proj.AddComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         rb.mass = _mass;
 
         var direction = (targetPos - proj.transform.position).normalized;
