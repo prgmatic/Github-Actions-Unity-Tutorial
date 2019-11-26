@@ -11,7 +11,6 @@ public class BoxPile : MonoBehaviour
     private void Start()
     {
         _materal = new Material(Shader.Find("Legacy Shaders/Diffuse"));
-
         for (int row = 0; row < _rows; row++)
         {
             int boxCount = _rows - row;
